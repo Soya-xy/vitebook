@@ -1,23 +1,23 @@
 <script>
-  import {currentPage, useSSRContext, variants} from '@vitebook/client';
+  import { currentPage, useSSRContext, variants } from '@vitebook/client';
 
-  import {onMount} from 'svelte';
+  import { onMount } from 'svelte';
 
-  import {isMarkdownFloatingTocEnabled} from '../components/markdown/isMarkdownFloatingTocEnabled';
+  import { isMarkdownFloatingTocEnabled } from '../components/markdown/isMarkdownFloatingTocEnabled';
   import NavbarTitle from '../components/navbar/NavbarTitle.svelte';
   import Scrim from '../components/Scrim.svelte';
   import VariantsMenu from '../components/VariantsMenu.svelte';
-  import {hasSidebarItems} from '../components/sidebar/hasSidebarItems';
+  import { hasSidebarItems } from '../components/sidebar/hasSidebarItems';
   import Sidebar from '../components/sidebar/Sidebar.svelte';
   import SidebarToggle from '../components/sidebar/SidebarToggle.svelte';
   import ThemeSwitch from '../components/ThemeSwitch.svelte';
   import DiscordLink from '../components/links/DiscordLink.svelte';
   import RepoLink from '../components/links/RepoLink.svelte';
-  import {addons} from '@vitebook/client/addons';
+  import { addons } from '@vitebook/client/addons';
   import TwitterLink from '../components/links/TwitterLink.svelte';
-  import {darkMode, useDarkMode} from '../stores/darkMode';
-  import {isLargeScreen} from '../stores/isLargeScreen';
-  import {localizedThemeConfig} from '../stores/localizedThemeConfig';
+  import { darkMode, useDarkMode } from '../stores/darkMode';
+  import { isLargeScreen } from '../stores/isLargeScreen';
+  import { localizedThemeConfig } from '../stores/localizedThemeConfig';
   import Page from './Page.svelte';
 
   if (import.meta.env.SSR) {
@@ -82,19 +82,19 @@
       {#await import('../components/navbar/Navbar.svelte') then Navbar}
         <svelte:component this={Navbar.default}>
           <svelte:fragment slot="start">
-            <slot name="navbar-start"/>
+            <slot name="navbar-start" />
             <span class="navbar__sidebar-toggle">
-              <SidebarToggle on:toggle={onToggleSidebar}/>
+              <SidebarToggle on:toggle={onToggleSidebar} />
             </span>
           </svelte:fragment>
 
           <svelte:fragment slot="end">
             <slot name="navbar-end">
               {#if $isLargeScreen}
-                <TwitterLink/>
-                <DiscordLink/>
-                <RepoLink/>
-                <ThemeSwitch class="navbar__theme-switch"/>
+                <TwitterLink />
+                <DiscordLink />
+                <RepoLink />
+                <ThemeSwitch class="navbar__theme-switch" />
               {/if}
 
               {#if false}
@@ -113,10 +113,10 @@
       <div class="navbar-fallback" class:no-sidebar-toggle={!$hasSidebarItems}>
         {#if $hasSidebarItems}
           <span class="navbar__sidebar-toggle">
-            <SidebarToggle on:toggle={onToggleSidebar}/>
+            <SidebarToggle on:toggle={onToggleSidebar} />
           </span>
         {/if}
-        <NavbarTitle/>
+        <NavbarTitle />
       </div>
     {/if}
   </slot>
@@ -124,43 +124,43 @@
   <slot name="sidebar">
     <Sidebar bind:open={isSidebarOpen}>
       <svelte:fragment slot="start">
-        <slot name="sidebar-start"/>
+        <slot name="sidebar-start" />
       </svelte:fragment>
 
       <svelte:fragment slot="end">
-        <slot name="sidebar-end"/>
+        <slot name="sidebar-end" />
       </svelte:fragment>
     </Sidebar>
   </slot>
 
   <div class="preview" class:md={isMarkdownPage}>
-    <slot name="preview-top-bar-start"/>
+    <slot name="preview-top-bar-start" />
 
     {#if showPreviewTopBar}
       <div class="preview__top-bar">
-        <div style="flex-grow: 1;"/>
-        <VariantsMenu/>
-        <div style="flex-grow: 1;"/>
+        <div style="flex-grow: 1;" />
+        <VariantsMenu />
+        <div style="flex-grow: 1;" />
       </div>
     {/if}
 
-    <slot name="preview-top-bar-end"/>
+    <slot name="preview-top-bar-end" />
 
     <div class="preview__content">
       <slot name="page">
         <Page>
           <svelte:fragment slot="start">
-            <slot name="page-start"/>
+            <slot name="page-start" />
           </svelte:fragment>
 
           <svelte:fragment slot="end">
-            <slot name="page-end"/>
+            <slot name="page-end" />
           </svelte:fragment>
         </Page>
       </slot>
     </div>
 
-    <slot name="preview-end"/>
+    <slot name="preview-end" />
   </div>
 
   <slot name="addons">
@@ -168,27 +168,27 @@
       {#await import('../components/addons/Addons.svelte') then Addons}
         <svelte:component this={Addons.default}>
           <svelte:fragment slot="start">
-            <slot name="addons-start"/>
+            <slot name="addons-start" />
           </svelte:fragment>
 
           <svelte:fragment slot="end">
-            <slot name="addons-end"/>
+            <slot name="addons-end" />
           </svelte:fragment>
         </svelte:component>
       {/await}
     {/if}
     {#if !isMarkdownPage && !noDirectory}
       {#await import('@vitebook/client/addons/directory/DirectoryAddon.svelte') then Directory}
-        <svelte:component this={Directory.default}/>
+        <svelte:component this={Directory.default} />
       {/await}
     {/if}
   </slot>
 
-  <slot name="root"/>
+  <slot name="root" />
 
   {#if isMarkdownPage && $isMarkdownFloatingTocEnabled}
     {#await import('../components/markdown/MarkdownFloatingToc.svelte') then c}
-      <svelte:component this={c.default}/>
+      <svelte:component this={c.default} />
     {/await}
   {/if}
 

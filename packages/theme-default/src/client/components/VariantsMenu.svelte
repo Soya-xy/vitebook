@@ -7,8 +7,8 @@
     toTitleCase,
     variants,
   } from '@vitebook/client';
-  import {tick} from 'svelte';
-  import {darkMode} from '../stores/darkMode';
+  import { tick } from 'svelte';
+  import { darkMode } from '../stores/darkMode';
 
   let buttonRef;
   let variantsRef;
